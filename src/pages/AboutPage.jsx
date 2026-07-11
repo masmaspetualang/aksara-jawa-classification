@@ -5,28 +5,23 @@ const AboutPage = () => {
   const techStack = [
     {
       icon: <FiCpu className="text-2xl text-vintage-brown" />,
-      title: 'Deep Learning (MobileNetV2)',
-      desc: 'MobileNetV2 (TensorFlow/Keras) digunakan sebagai model dasar transfer learning yang dilatih untuk mengenali 20 kelas aksara dasar dengan parameter masukan citra 224x224 RGB.',
-    },
-    {
-      icon: <FiServer className="text-2xl text-vintage-brown" />,
-      title: 'FastAPI Backend',
-      desc: 'Kerangka kerja API berkecepatan tinggi berbasis Python. Menangani pemrosesan awal citra (resizing & normalisasi), pemanggilan model, dan interaksi dengan database.',
+      title: 'Client-Side Classification (JS)',
+      desc: 'Pemrosesan citra (resizing, normalisasi piksel [-1, 1], dan pencocokan kemiripan MSE) dilakukan secara lokal di sisi client menggunakan JavaScript untuk menghilangkan cold-start server.',
     },
     {
       icon: <FiBook className="text-2xl text-vintage-brown" />,
-      title: 'React Frontend',
-      desc: 'Dibangun menggunakan React, Vite, dan Tailwind CSS. Antarmuka vintage premium yang responsif dengan pemuatan font aksara lokal secara dinamis.',
+      title: 'React Frontend (Vite)',
+      desc: 'Dibangun dengan React, Vite, dan Tailwind CSS. Antarmuka premium dengan gaya vintage jawa yang responsif dan pemuatan font aksara secara dinamis.',
     },
     {
       icon: <FiDatabase className="text-2xl text-vintage-brown" />,
-      title: 'PostgreSQL DB',
-      desc: 'Menyimpan riwayat klasifikasi secara relasional, meliputi nama aksara terprediksi, akurasi, timestamp, dan alamat penyimpanan file citra.',
+      title: 'Supabase Database',
+      desc: 'Menyimpan riwayat klasifikasi secara relasional langsung dari frontend ke tabel PostgreSQL Supabase secara aman menggunakan Row-Level Security (RLS).',
     },
     {
-      icon: <FiSettings className="text-2xl text-vintage-brown" />,
-      title: 'Docker Compose',
-      desc: 'Menyatukan seluruh modul (frontend, backend, database) dalam kontainer terisolasi yang dapat dijalankan secara instan dengan satu perintah.',
+      icon: <FiDatabase className="text-2xl text-vintage-brown" />,
+      title: 'Supabase Storage',
+      desc: 'Menyimpan file gambar aksara yang diunggah oleh pengguna secara permanen di storage bucket cloud publik milik Supabase.',
     },
   ];
 

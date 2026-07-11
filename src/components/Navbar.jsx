@@ -3,10 +3,10 @@ import { FiCpu, FiClock, FiHome, FiInfo, FiBook } from 'react-icons/fi';
 
 const Navbar = ({ activeTab, setActiveTab }) => {
   const navItems = [
-    { id: 'home', label: 'Home', icon: <FiHome className="mr-1.5" /> },
-    { id: 'classification', label: 'Classification', icon: <FiCpu className="mr-1.5" /> },
-    { id: 'history', label: 'History', icon: <FiClock className="mr-1.5" /> },
-    { id: 'about', label: 'About', icon: <FiInfo className="mr-1.5" /> },
+    { id: 'home', label: 'Home', icon: <FiHome className="sm:mr-1.5 text-base sm:text-sm" /> },
+    { id: 'classification', label: 'Classification', icon: <FiCpu className="sm:mr-1.5 text-base sm:text-sm" /> },
+    { id: 'history', label: 'History', icon: <FiClock className="sm:mr-1.5 text-base sm:text-sm" /> },
+    { id: 'about', label: 'About', icon: <FiInfo className="sm:mr-1.5 text-base sm:text-sm" /> },
   ];
 
   return (
@@ -15,36 +15,36 @@ const Navbar = ({ activeTab, setActiveTab }) => {
         <div className="flex justify-between items-center h-20">
           
           {/* Logo / Brand */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('home')}>
-            <div className="bg-vintage-brown text-vintage-cream p-2.5 rounded-lg shadow-sm border border-vintage-gold/50 flex items-center justify-center">
-              <span className="font-javanese text-2xl leading-none">ꦲ</span>
+          <div className="flex items-center space-x-2 sm:space-x-3 cursor-pointer shrink-0" onClick={() => setActiveTab('home')}>
+            <div className="bg-vintage-brown text-vintage-cream p-2 sm:p-2.5 rounded-lg shadow-sm border border-vintage-gold/50 flex items-center justify-center shrink-0">
+              <span className="font-javanese text-xl sm:text-2xl leading-none">ꦲ</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-cinzel text-xl font-bold tracking-wider text-vintage-coffee leading-tight">
-                Aksara Jawa Classifier
+              <span className="font-cinzel text-sm sm:text-lg md:text-xl font-bold tracking-wider text-vintage-coffee leading-tight">
+                Aksara Jawa
               </span>
-              <span className="text-[10px] uppercase font-semibold text-vintage-brown/70 tracking-widest leading-none">
-                Museum Digital & Klasifikasi
+              <span className="text-[8px] sm:text-[10px] uppercase font-semibold text-vintage-brown/70 tracking-widest leading-none hidden xs:block sm:block">
+                Museum Digital & AI
               </span>
             </div>
           </div>
 
           {/* Nav Links */}
-          <div className="flex space-x-1 md:space-x-4">
+          <div className="flex space-x-1 sm:space-x-2">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center px-3.5 py-2.5 rounded-md text-sm font-semibold tracking-wide transition-all duration-300 ${
+                  className={`flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-md text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shrink-0 ${
                     isActive
                       ? 'bg-vintage-brown text-vintage-cream shadow-md border border-vintage-gold/30'
                       : 'text-vintage-coffee/85 hover:bg-vintage-beige/50 hover:text-vintage-brown'
                   }`}
                 >
                   {item.icon}
-                  <span>{item.label}</span>
+                  <span className="hidden sm:inline">{item.label}</span>
                 </button>
               );
             })}

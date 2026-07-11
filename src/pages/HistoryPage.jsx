@@ -250,95 +250,155 @@ const HistoryPage = () => {
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-lg border border-vintage-brown/20 shadow-sm">
-              <table className="w-full text-left border-collapse bg-vintage-cream/50">
-                <thead>
-                  <tr className="bg-vintage-brown text-vintage-cream text-xs uppercase tracking-wider font-bold border-b border-vintage-brown">
-                    <th className="py-4 px-5 w-16">No</th>
-                    <th className="py-4 px-5 w-24">Citra</th>
-                    <th className="py-4 px-5">Prediksi</th>
-                    <th className="py-4 px-5">Akurasi</th>
-                    <th className="py-4 px-5">Tanggal Dibuat</th>
-                    <th className="py-4 px-5 w-16 text-center">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-vintage-brown/15 text-sm text-vintage-coffee">
-                  {currentItems.map((item, idx) => {
-                    const rowNumber = indexOfFirstItem + idx + 1;
-                    const charDetails = getCharacterDetails(item.prediction);
-                    const imageUrl = item.image;
-                    
-                    return (
-                      <tr key={item.id} className="hover:bg-vintage-beige/20 transition duration-150">
-                        {/* No */}
-                        <td className="py-3 px-5 font-mono text-xs">{rowNumber}</td>
-                        
+            <>
+              {/* Desktop Table View */}
+              <div className="hidden sm:block overflow-x-auto rounded-lg border border-vintage-brown/20 shadow-sm">
+                <table className="w-full text-left border-collapse bg-vintage-cream/50">
+                  <thead>
+                    <tr className="bg-vintage-brown text-vintage-cream text-xs uppercase tracking-wider font-bold border-b border-vintage-brown">
+                      <th className="py-4 px-5 w-16">No</th>
+                      <th className="py-4 px-5 w-24">Citra</th>
+                      <th className="py-4 px-5">Prediksi</th>
+                      <th className="py-4 px-5">Akurasi</th>
+                      <th className="py-4 px-5">Tanggal Dibuat</th>
+                      <th className="py-4 px-5 w-16 text-center">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-vintage-brown/15 text-sm text-vintage-coffee">
+                    {currentItems.map((item, idx) => {
+                      const rowNumber = indexOfFirstItem + idx + 1;
+                      const charDetails = getCharacterDetails(item.prediction);
+                      const imageUrl = item.image;
+                      
+                      return (
+                        <tr key={item.id} className="hover:bg-vintage-beige/20 transition duration-150">
+                          <td className="py-3 px-5 font-mono text-xs">{rowNumber}</td>
+                          <td className="py-3 px-5">
+                            <div 
+                              onClick={() => setLightboxImage(imageUrl)}
+                              className="w-12 h-12 rounded border border-vintage-brown/30 bg-vintage-cream overflow-hidden flex items-center justify-center cursor-zoom-in hover:border-vintage-gold shadow-sm"
+                            >
+                              <img
+                                src={imageUrl}
+                                alt={item.prediction}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  e.target.src = 'https://placehold.co/100x100?text=?';
+                                }}
+                              />
+                            </div>
+                          </td>
+                          <td className="py-3 px-5 font-semibold">
+                            <div className="flex items-center space-x-3.5">
+                              <div className="w-9 h-9 rounded bg-vintage-beige/55 flex items-center justify-center border border-vintage-brown/20 shrink-0">
+                                <span className="font-javanese text-xl text-vintage-brown leading-none select-none">
+                                  {charDetails?.glyph}
+                                </span>
+                              </div>
+                              <div className="flex flex-col">
+                                <span className="text-sm font-bold text-vintage-coffee">Aksara {charDetails?.name}</span>
+                                <span className="text-[10px] text-vintage-coffee/50 font-normal leading-tight">
+                                  {charDetails?.group}
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-3 px-5 font-mono font-bold text-vintage-brown">
+                            {(item.confidence * 100).toFixed(1)}%
+                          </td>
+                          <td className="py-3 px-5 text-xs text-vintage-coffee/75">
+                            {new Date(item.created_at).toLocaleString('id-ID', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </td>
+                          <td className="py-3 px-5 text-center">
+                            <button
+                              onClick={() => handleDelete(item.id)}
+                              className="p-1.5 text-vintage-brown hover:text-red-700 hover:bg-red-50 rounded transition-colors duration-150"
+                              title="Hapus riwayat"
+                            >
+                              <FiTrash2 className="text-lg" />
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Card List View */}
+              <div className="block sm:hidden space-y-4">
+                {currentItems.map((item, idx) => {
+                  const rowNumber = indexOfFirstItem + idx + 1;
+                  const charDetails = getCharacterDetails(item.prediction);
+                  const imageUrl = item.image;
+                  
+                  return (
+                    <div key={item.id} className="bg-vintage-cream p-4 rounded-xl border border-vintage-brown/30 shadow-md flex flex-col space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs text-vintage-coffee/50">Data #{rowNumber}</span>
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="p-1.5 text-vintage-brown hover:text-red-700 hover:bg-red-50 rounded transition-colors duration-150"
+                          title="Hapus riwayat"
+                        >
+                          <FiTrash2 className="text-lg" />
+                        </button>
+                      </div>
+                      
+                      <div className="flex items-start space-x-4">
                         {/* Image Thumbnail */}
-                        <td className="py-3 px-5">
-                          <div 
-                            onClick={() => setLightboxImage(imageUrl)}
-                            className="w-12 h-12 rounded border border-vintage-brown/30 bg-vintage-cream overflow-hidden flex items-center justify-center cursor-zoom-in hover:border-vintage-gold shadow-sm"
-                          >
-                            <img
-                              src={imageUrl}
-                              alt={item.prediction}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                e.target.src = 'https://placehold.co/100x100?text=?';
-                              }}
-                            />
+                        <div 
+                          onClick={() => setLightboxImage(imageUrl)}
+                          className="w-16 h-16 shrink-0 rounded border border-vintage-brown/30 bg-vintage-cream overflow-hidden flex items-center justify-center cursor-zoom-in hover:border-vintage-gold shadow-sm"
+                        >
+                          <img
+                            src={imageUrl}
+                            alt={item.prediction}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.src = 'https://placehold.co/100x100?text=?';
+                            }}
+                          />
+                        </div>
+                        
+                        {/* Info details */}
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-javanese text-xl text-vintage-brown select-none leading-none">
+                              {charDetails?.glyph}
+                            </span>
+                            <span className="text-sm font-bold text-vintage-coffee truncate">
+                              Aksara {charDetails?.name}
+                            </span>
                           </div>
-                        </td>
-
-                        {/* Prediction Label */}
-                        <td className="py-3 px-5 font-semibold">
-                          <div className="flex items-center space-x-3.5">
-                            <div className="w-9 h-9 rounded bg-vintage-beige/55 flex items-center justify-center border border-vintage-brown/20 shrink-0">
-                              <span className="font-javanese text-xl text-vintage-brown leading-none select-none">
-                                {charDetails?.glyph}
-                              </span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-sm font-bold text-vintage-coffee">Aksara {charDetails?.name}</span>
-                              <span className="text-[10px] text-vintage-coffee/50 font-normal leading-tight">
-                                {charDetails?.group}
-                              </span>
-                            </div>
+                          <p className="text-[10px] text-vintage-coffee/50 truncate leading-none">
+                            {charDetails?.group}
+                          </p>
+                          
+                          <div className="flex items-center justify-between pt-1">
+                            <span className="text-xs font-mono font-bold text-vintage-brown">
+                              Akurasi: {(item.confidence * 100).toFixed(1)}%
+                            </span>
+                            <span className="text-[10px] text-vintage-coffee/60">
+                              {new Date(item.created_at).toLocaleDateString('id-ID', {
+                                day: 'numeric',
+                                month: 'short'
+                              })}
+                            </span>
                           </div>
-                        </td>
-
-                        {/* Confidence Percentage */}
-                        <td className="py-3 px-5 font-mono font-bold text-vintage-brown">
-                          {(item.confidence * 100).toFixed(1)}%
-                        </td>
-
-                        {/* Created At Timestamp */}
-                        <td className="py-3 px-5 text-xs text-vintage-coffee/75">
-                          {new Date(item.created_at).toLocaleString('id-ID', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </td>
-
-                        {/* Actions */}
-                        <td className="py-3 px-5 text-center">
-                          <button
-                            onClick={() => handleDelete(item.id)}
-                            className="p-1.5 text-vintage-brown hover:text-red-700 hover:bg-red-50 rounded transition-colors duration-150"
-                            title="Hapus riwayat"
-                          >
-                            <FiTrash2 className="text-lg" />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           )}
 
           {/* Pagination Controls */}

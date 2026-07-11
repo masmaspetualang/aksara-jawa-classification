@@ -29,7 +29,7 @@ const LandingPage = ({ setActiveTab }) => {
             </div>
 
             <div className="space-y-4">
-              <h1 className="font-cinzel text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-vintage-coffee leading-[1.1]">
+              <h1 className="font-cinzel text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-vintage-coffee leading-[1.1]">
                 Klasifikasi Aksara Jawa <br className="hidden md:inline" />
               </h1>
               
