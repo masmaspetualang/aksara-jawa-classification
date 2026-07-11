@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'NotoSansJavanese';
+  src: url('./assets/fonts/NotoSansJavanese-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  background-color: #FAF5EC; /* vintage-cream */
+  color: #36220F; /* vintage-coffee */
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Scrollbar for vintage theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF5EC;
+}
+::-webkit-scrollbar-thumb {
+  background: #8C6239;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #704214;
+}
+
+/* Decorative border vintage */
+.vintage-border {
+  border: 4px double #8C6239;
+}
+
+.vintage-border-thin {
+  border: 1px solid #8C6239;
+}
+
+/* Subtle Batik Background pattern */
+.bg-batik {
+  background-image: url('./assets/batik-pattern.svg');
+  background-repeat: repeat;
+}
